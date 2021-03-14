@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Description
+Utilities to download, extract, pickle and unpickle compressed IMDB datasets
+
+Data source: https://datasets.imdbws.com/
 """
 
-import requests
-import pandas as pd
-from pathlib import Path
 import gzip
+import pandas as pd
+import requests
+
+from pathlib import Path
 
 
 def download_dataset(url, filename):
@@ -28,7 +31,6 @@ def unzip_dataset(filename):
 
 def pickle_pd_dataframe(filename):
     df = pd.read_csv(f'data/{filename}.tsv', delimiter='\t', na_values=r'\N', dtype='object')
-    ipdb.set_trace()
     if 'tconst' in df.columns:
         df.set_index('tconst', inplace=True)
     elif 'nconst' in df.columns:
